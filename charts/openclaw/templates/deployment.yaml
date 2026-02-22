@@ -39,15 +39,12 @@ spec:
             - sh
             - -c
             - |
-              # Создаем структуру директорий
               mkdir -p /home/node/.openclaw/workspace
-              
-              # Копируем конфиги из ConfigMap (перезаписываем, чтобы применить обновления из Helm)
               cp /tmp/seed/openclaw.json /home/node/.openclaw/openclaw.json
               cp /tmp/seed/HEARTBEAT.md /home/node/.openclaw/workspace/HEARTBEAT.md
-              
-              # Исправляем права доступа рекурсивно
               chown -R 1000:1000 /home/node/.openclaw
+              chmod 700 /home/node/.openclaw
+              chmod 600 /home/node/.openclaw/openclaw.json
           securityContext:
             runAsUser: 0
           volumeMounts:
